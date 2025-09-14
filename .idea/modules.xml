@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/spring-mvc-coroutines-jdbc-vs-r2dbc-bench.iml" filepath="$PROJECT_DIR$/.idea/spring-mvc-coroutines-jdbc-vs-r2dbc-bench.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-mvc-coroutines-jdbc-vs-r2dbc-bench.main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-mvc-coroutines-jdbc-vs-r2dbc-bench.main.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: pg-bench
+  profiles:
+    active: jdbc
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+# --- JDBC プロファイル ---
+---
+spring:
+  config:
+    activate:
+      on-profile: jdbc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bench
+    username: bench
+    password: bench
+    hikari:
+      maximum-pool-size: 20
+  r2dbc:
+    # 使わないが項目があると上書きされないように空で置いておく
+    url:
+  main:
+    web-application-type: servlet
+
+bench:
+  seed:
+    enabled: true
+    rows: 200_000
+
+# --- R2DBC プロファイル ---
+---
+spring:
+  config:
+    activate:
+      on-profile: r2dbc
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/bench
+    username: bench
+    password: bench
+    pool:
+      max-size: 20
+  datasource:
+    # Flyway用にJDBCも必要（R2DBCのみだとFlywayが動かない）
+    url: jdbc:postgresql://localhost:5432/bench
+    username: bench
+    password: bench
+    hikari:
+      maximum-pool-size: 5
+  main:
+    web-application-type: servlet
+
+bench:
+  seed:
+    enabled: true
+    rows: 200_000
