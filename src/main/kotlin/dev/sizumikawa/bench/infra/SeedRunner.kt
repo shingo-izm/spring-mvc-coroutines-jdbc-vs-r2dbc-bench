@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 import javax.sql.DataSource
 
 @Component
-@Profile("jdbc", "r2dbc")
+@Profile("jdbc")
 class SeedRunner(
     dataSource: DataSource,
     @Value("\${bench.seed.enabled:true}") private val enabled: Boolean,
@@ -19,10 +19,16 @@ class SeedRunner(
     private val jdbc = JdbcTemplate(dataSource)
 
     override fun run(args: org.springframework.boot.ApplicationArguments) {
-        if (!enabled) return
+        if (!enabled) {
+            println("Seeding is disabled.")
+            return
+        }
 
         val count = jdbc.queryForObject("SELECT COUNT(*) FROM orders", Long::class.java) ?: 0L
-        if (count > 0) return
+        if (count > 0) {
+            println("Orders table is not empty (count=$count). Skipping seeding.")
+            return
+        }
 
         // ランダム分布: customer_id(1..5000), created_at(過去365日), amount(0..1000)
         val sql = """

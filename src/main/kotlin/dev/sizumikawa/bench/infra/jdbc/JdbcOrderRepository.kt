@@ -8,6 +8,8 @@ import kotlinx.coroutines.withContext
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
 import java.sql.Connection
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import javax.sql.DataSource
 
 @Repository
@@ -34,8 +36,8 @@ class JdbcOrderRepository(
 
         return conn.prepareStatement(sql).use { ps ->
             ps.setLong(1, req.customerId)
-            ps.setObject(2, req.from)
-            ps.setObject(3, req.to)
+            ps.setObject(2, OffsetDateTime.ofInstant(req.from, ZoneOffset.UTC))
+            ps.setObject(3, OffsetDateTime.ofInstant(req.to, ZoneOffset.UTC))
             ps.setInt(4, req.size)
             ps.setInt(5, req.offset)
             ps.executeQuery().use { rs ->
