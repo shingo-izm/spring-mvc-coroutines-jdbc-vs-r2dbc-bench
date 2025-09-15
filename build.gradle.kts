@@ -32,10 +32,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
 
-    // Flyway（スキーマ管理。バージョンは Boot BOM に委ねる）
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-database-postgresql")
-
     // Kotlinデータクラスのシリアライズ向け
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
